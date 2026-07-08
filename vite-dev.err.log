@@ -1,0 +1,134 @@
+[2m7:01:32 PM[22m [31m[1m[vite][22m[39m [31mInternal server error: C:\project intern\ieee trial\src\main.jsx: Unexpected token, expected "," (997:0)
+
+[0m [90m  995 |[31m       timestamp[33m:[31m [36mnew[31m [33mDate[31m()[33m.[31mtoISOString()[33m,[31m
+ [90m  996 |[31m       analysis
+[31m[1m>[22m[31m[90m  997 |[31m n    }[33m;[31m
+ [90m      |[31m [31m[1m^[22m[31m
+ [90m  998 |[31m
+ [90m  999 |[31m     [36mconst[31m storedPatients [33m=[31m [33mJSON[31m[33m.[31mparse(localStorage[33m.[31mgetItem([32m"shakti-doctor-patients"[31m) [33m||[31m [32m"[]"[31m)[33m;[31m
+ [90m 1000 |[31m     storedPatients[33m.[31munshift(record)[33m;[31m[0m[39m
+  Plugin: [35mvite:react-babel[39m
+  File: [36mC:/project intern/ieee trial/src/main.jsx[39m:997:0
+[33m  995|        timestamp: new Date().toISOString(),
+  996|        analysis
+  997|  n    };
+     |  ^
+  998|  
+  999|      const storedPatients = JSON.parse(localStorage.getItem("shakti-doctor-patients") || "[]");[39m
+      at constructor (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:365:19)
+      at JSXParserMixin.raise (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:6616:19)
+      at JSXParserMixin.unexpected (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:6636:16)
+      at JSXParserMixin.expect (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:6916:12)
+      at JSXParserMixin.parseObjectLike (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:11839:14)
+      at JSXParserMixin.parseExprAtom (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:11356:23)
+      at JSXParserMixin.parseExprAtom (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:4776:20)
+      at JSXParserMixin.parseExprSubscripts (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:11098:23)
+      at JSXParserMixin.parseUpdate (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:11083:21)
+      at JSXParserMixin.parseMaybeUnary (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:11063:23)
+      at JSXParserMixin.parseMaybeUnaryOrPrivate (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:10916:61)
+      at JSXParserMixin.parseExprOps (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:10921:23)
+      at JSXParserMixin.parseMaybeConditional (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:10898:23)
+      at JSXParserMixin.parseMaybeAssign (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:10848:21)
+      at C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:10817:39
+      at JSXParserMixin.allowInAnd (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:12438:16)
+      at JSXParserMixin.parseMaybeAssignAllowIn (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:10817:17)
+      at JSXParserMixin.parseVar (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:13401:91)
+      at JSXParserMixin.parseVarStatement (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:13247:10)
+      at JSXParserMixin.parseStatementContent (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:12868:23)
+      at JSXParserMixin.parseStatementLike (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:12784:17)
+      at JSXParserMixin.parseStatementListItem (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:12764:17)
+      at JSXParserMixin.parseBlockOrModuleBlockBody (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:13333:61)
+      at JSXParserMixin.parseBlockBody (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:13326:10)
+      at JSXParserMixin.parseBlock (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:13314:10)
+      at JSXParserMixin.parseFunctionBody (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:12117:24)
+      at JSXParserMixin.parseArrowExpression (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:12092:10)
+      at JSXParserMixin.parseParenAndDistinguishExpression (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:11704:12)
+      at JSXParserMixin.parseExprAtom (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:11348:23)
+      at JSXParserMixin.parseExprAtom (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:4776:20)
+      at JSXParserMixin.parseExprSubscripts (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:11098:23)
+      at JSXParserMixin.parseUpdate (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:11083:21)
+      at JSXParserMixin.parseMaybeUnary (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:11063:23)
+      at JSXParserMixin.parseMaybeUnaryOrPrivate (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:10916:61)
+      at JSXParserMixin.parseExprOps (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:10921:23)
+      at JSXParserMixin.parseMaybeConditional (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:10898:23)
+      at JSXParserMixin.parseMaybeAssign (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:10848:21)
+      at C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:10817:39
+      at JSXParserMixin.allowInAnd (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:12438:16)
+      at JSXParserMixin.parseMaybeAssignAllowIn (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:10817:17)
+      at JSXParserMixin.parseVar (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:13401:91)
+      at JSXParserMixin.parseVarStatement (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:13247:10)
+      at JSXParserMixin.parseStatementContent (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:12868:23)
+      at JSXParserMixin.parseStatementLike (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:12784:17)
+      at JSXParserMixin.parseStatementListItem (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:12764:17)
+      at JSXParserMixin.parseBlockOrModuleBlockBody (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:13333:61)
+      at JSXParserMixin.parseBlockBody (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:13326:10)
+      at JSXParserMixin.parseBlock (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:13314:10)
+      at JSXParserMixin.parseFunctionBody (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:12117:24)
+      at JSXParserMixin.parseFunctionBodyAndFinish (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:12103:10)
+[2m7:01:36 PM[22m [31m[1m[vite][22m[39m [31mInternal server error: C:\project intern\ieee trial\src\main.jsx: Unexpected token, expected "," (997:0)
+
+[0m [90m  995 |[31m       timestamp[33m:[31m [36mnew[31m [33mDate[31m()[33m.[31mtoISOString()[33m,[31m
+ [90m  996 |[31m       analysis
+[31m[1m>[22m[31m[90m  997 |[31m n    }[33m;[31m
+ [90m      |[31m [31m[1m^[22m[31m
+ [90m  998 |[31m
+ [90m  999 |[31m     [36mconst[31m storedPatients [33m=[31m [33mJSON[31m[33m.[31mparse(localStorage[33m.[31mgetItem([32m"shakti-doctor-patients"[31m) [33m||[31m [32m"[]"[31m)[33m;[31m
+ [90m 1000 |[31m     storedPatients[33m.[31munshift(record)[33m;[31m[0m[39m
+  Plugin: [35mvite:react-babel[39m
+  File: [36mC:/project intern/ieee trial/src/main.jsx[39m:997:0
+[33m  995|        timestamp: new Date().toISOString(),
+  996|        analysis
+  997|  n    };
+     |  ^
+  998|  
+  999|      const storedPatients = JSON.parse(localStorage.getItem("shakti-doctor-patients") || "[]");[39m
+      at constructor (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:365:19)
+      at JSXParserMixin.raise (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:6616:19)
+      at JSXParserMixin.unexpected (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:6636:16)
+      at JSXParserMixin.expect (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:6916:12)
+      at JSXParserMixin.parseObjectLike (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:11839:14)
+      at JSXParserMixin.parseExprAtom (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:11356:23)
+      at JSXParserMixin.parseExprAtom (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:4776:20)
+      at JSXParserMixin.parseExprSubscripts (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:11098:23)
+      at JSXParserMixin.parseUpdate (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:11083:21)
+      at JSXParserMixin.parseMaybeUnary (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:11063:23)
+      at JSXParserMixin.parseMaybeUnaryOrPrivate (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:10916:61)
+      at JSXParserMixin.parseExprOps (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:10921:23)
+      at JSXParserMixin.parseMaybeConditional (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:10898:23)
+      at JSXParserMixin.parseMaybeAssign (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:10848:21)
+      at C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:10817:39
+      at JSXParserMixin.allowInAnd (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:12438:16)
+      at JSXParserMixin.parseMaybeAssignAllowIn (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:10817:17)
+      at JSXParserMixin.parseVar (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:13401:91)
+      at JSXParserMixin.parseVarStatement (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:13247:10)
+      at JSXParserMixin.parseStatementContent (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:12868:23)
+      at JSXParserMixin.parseStatementLike (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:12784:17)
+      at JSXParserMixin.parseStatementListItem (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:12764:17)
+      at JSXParserMixin.parseBlockOrModuleBlockBody (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:13333:61)
+      at JSXParserMixin.parseBlockBody (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:13326:10)
+      at JSXParserMixin.parseBlock (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:13314:10)
+      at JSXParserMixin.parseFunctionBody (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:12117:24)
+      at JSXParserMixin.parseArrowExpression (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:12092:10)
+      at JSXParserMixin.parseParenAndDistinguishExpression (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:11704:12)
+      at JSXParserMixin.parseExprAtom (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:11348:23)
+      at JSXParserMixin.parseExprAtom (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:4776:20)
+      at JSXParserMixin.parseExprSubscripts (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:11098:23)
+      at JSXParserMixin.parseUpdate (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:11083:21)
+      at JSXParserMixin.parseMaybeUnary (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:11063:23)
+      at JSXParserMixin.parseMaybeUnaryOrPrivate (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:10916:61)
+      at JSXParserMixin.parseExprOps (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:10921:23)
+      at JSXParserMixin.parseMaybeConditional (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:10898:23)
+      at JSXParserMixin.parseMaybeAssign (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:10848:21)
+      at C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:10817:39
+      at JSXParserMixin.allowInAnd (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:12438:16)
+      at JSXParserMixin.parseMaybeAssignAllowIn (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:10817:17)
+      at JSXParserMixin.parseVar (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:13401:91)
+      at JSXParserMixin.parseVarStatement (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:13247:10)
+      at JSXParserMixin.parseStatementContent (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:12868:23)
+      at JSXParserMixin.parseStatementLike (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:12784:17)
+      at JSXParserMixin.parseStatementListItem (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:12764:17)
+      at JSXParserMixin.parseBlockOrModuleBlockBody (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:13333:61)
+      at JSXParserMixin.parseBlockBody (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:13326:10)
+      at JSXParserMixin.parseBlock (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:13314:10)
+      at JSXParserMixin.parseFunctionBody (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:12117:24)
+      at JSXParserMixin.parseFunctionBodyAndFinish (C:\project intern\ieee trial\node_modules\@babel\parser\lib\index.js:12103:10)

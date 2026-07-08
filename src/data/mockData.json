@@ -1,0 +1,84 @@
+{
+  "risks": [
+    { "name": "Cardiac", "level": "High", "value": 86, "color": "#D81B60" },
+    { "name": "Osteoporosis", "level": "Medium", "value": 58, "color": "#F59E0B" },
+    { "name": "Autoimmune", "level": "Low", "value": 22, "color": "#26A69A" },
+    { "name": "Perimenopause", "level": "High", "value": 81, "color": "#6A1B9A" },
+    { "name": "PCOS", "level": "Medium", "value": 62, "color": "#0EA5E9" }
+  ],
+  "evidence": ["Fatigue", "Jaw discomfort", "Poor sleep", "Weight changes", "Family history"],
+  "tests": ["ECG", "Lipid Profile", "HbA1c", "Vitamin D", "DEXA Scan", "ANA Profile", "ESR", "CRP"],
+  "patientReports": [
+    {
+      "id": "P-1024",
+      "name": "Meera Raman",
+      "age": 42,
+      "language": "Tamil + English",
+      "lastScreened": "Today, 09:30",
+      "priority": "High",
+      "transcript": "I feel tired, breathless while walking, poor sleep, jaw discomfort and my cycles have changed recently. My mother had diabetes.",
+      "evidence": ["Fatigue", "Breathlessness", "Jaw discomfort", "Poor sleep", "Cycle changes", "Family history"],
+      "risks": [
+        { "name": "Cardiac", "level": "High", "value": 88, "color": "#D81B60" },
+        { "name": "Osteoporosis", "level": "Medium", "value": 52, "color": "#F59E0B" },
+        { "name": "Autoimmune", "level": "Low", "value": 28, "color": "#26A69A" },
+        { "name": "Perimenopause", "level": "High", "value": 84, "color": "#6A1B9A" },
+        { "name": "PCOS", "level": "Medium", "value": 60, "color": "#0EA5E9" }
+      ]
+    },
+    {
+      "id": "P-1031",
+      "name": "Ananya Das",
+      "age": 29,
+      "language": "Hindi",
+      "lastScreened": "Today, 10:10",
+      "priority": "Medium",
+      "transcript": "My periods are irregular, I have weight gain, acne, and I feel tired after meals.",
+      "evidence": ["Irregular cycles", "Weight gain", "Acne", "Fatigue after meals"],
+      "risks": [
+        { "name": "Cardiac", "level": "Low", "value": 28, "color": "#D81B60" },
+        { "name": "Osteoporosis", "level": "Low", "value": 24, "color": "#F59E0B" },
+        { "name": "Autoimmune", "level": "Low", "value": 18, "color": "#26A69A" },
+        { "name": "Perimenopause", "level": "Low", "value": 20, "color": "#6A1B9A" },
+        { "name": "PCOS", "level": "High", "value": 82, "color": "#0EA5E9" }
+      ]
+    },
+    {
+      "id": "P-1042",
+      "name": "Lakshmi Nair",
+      "age": 55,
+      "language": "Malayalam + English",
+      "lastScreened": "Yesterday, 16:45",
+      "priority": "Medium",
+      "transcript": "I have back pain, height loss, vitamin D deficiency, and my wrist fractured after a small fall.",
+      "evidence": ["Back pain", "Height loss", "Low-impact fracture", "Vitamin D deficiency"],
+      "risks": [
+        { "name": "Cardiac", "level": "Medium", "value": 48, "color": "#D81B60" },
+        { "name": "Osteoporosis", "level": "High", "value": 90, "color": "#F59E0B" },
+        { "name": "Autoimmune", "level": "Low", "value": 25, "color": "#26A69A" },
+        { "name": "Perimenopause", "level": "Medium", "value": 54, "color": "#6A1B9A" },
+        { "name": "PCOS", "level": "Low", "value": 16, "color": "#0EA5E9" }
+      ]
+    }
+  ],
+  "screeningQuestions": [
+    "Hello. I'm SHAKTI. Please describe how you have been feeling recently.",
+    "Do you notice breathlessness, chest pressure, jaw discomfort, nausea, or unusual fatigue during routine activity?",
+    "Have your menstrual cycles, sleep, mood, weight, skin, or hair growth changed recently?",
+    "Have you had joint pain, rashes, frequent fever, fractures, back pain, or a family history of diabetes or heart disease?"
+  ],
+  "technology": [
+    "Flutter",
+    "React",
+    "FastAPI",
+    "Firebase",
+    "AWS",
+    "Speech Recognition",
+    "Medical NLP",
+    "Retrieval-Augmented Generation (RAG)",
+    "XGBoost",
+    "Explainable AI",
+    "SQLite Offline Storage"
+  ],
+  "chatScript": []
+}
