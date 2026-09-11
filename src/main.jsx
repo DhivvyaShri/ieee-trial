@@ -11,7 +11,9 @@ import {
   Brain,
   CheckCircle2,
   Cloud,
+  ExternalLink,
   Download,
+  Github,
   FileText,
   HeartPulse,
   Languages,
@@ -31,13 +33,16 @@ import {
   UserRound,
   Users,
   WifiOff,
-  X
+  X,
+  Linkedin,
+  Mail,
+  Phone
 } from "lucide-react";
 import { Area, AreaChart, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 import mockData from "./data/mockData.json";
 import "./styles.css";
 
-const navItems = ["Home", "About", "How It Works", "AI Screening", "Impact", "Research"];
+const navItems = ["Home", "About", "How It Works", "AI Screening", "Doctor Dashboard", "Impact", "Research", "Contact"];
 
 const { risks, evidence, tests, technology: tech, screeningQuestions, patientReports } = mockData;
 
@@ -209,12 +214,15 @@ function HomePage() {
       <Problem />
       <Solution />
       <ScreeningSection />
+      <DoctorDashboardPreview />
       <ExplainableAI />
       <RuralMode />
       <Technology />
       <Research />
       <Impact />
       <Testimonials />
+      <Contact />
+      <Footer />
     </main>
   );
 }
@@ -919,6 +927,77 @@ function Testimonials() {
         {items.map(([role, quote]) => <blockquote className="hover-card p-6" key={role}><p className="leading-7">"{quote}"</p><footer className="mt-5 font-bold text-shakti-pink">{role}</footer></blockquote>)}
       </div>
     </section>
+  );
+}
+
+function Contact() {
+  const [sent, setSent] = useState(false);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setSent(true);
+  };
+
+  return (
+    <section className="section contact-section" id="contact">
+      <div className="mx-auto grid max-w-7xl gap-8 px-4 lg:grid-cols-[0.8fr_1.2fr] lg:px-6">
+        <div>
+          <p className="text-sm font-extrabold uppercase tracking-[0.28em] text-shakti-pink">IEEE WIE 2026</p>
+          <h2 className="mt-3 font-heading text-3xl font-extrabold text-slate-950 dark:text-white sm:text-4xl">Bring earlier care closer to every woman.</h2>
+          <p className="mt-4 max-w-lg leading-8 text-slate-600 dark:text-slate-300">Team SHAKTI AI is building a multilingual screening and clinical decision support layer for hospitals, public health teams, and community workers.</p>
+          <div className="mt-8 grid gap-3 text-sm font-semibold text-slate-700 dark:text-slate-200">
+            <a className="contact-link" href="mailto:team@shaktiai.health"><Mail size={18} /> team@shaktiai.health</a>
+            <a className="contact-link" href="tel:+918000000000"><Phone size={18} /> +91 80000 00000</a>
+            <span className="contact-link"><ExternalLink size={18} /> Bengaluru, India</span>
+          </div>
+          <div className="mt-6 flex gap-3">
+            <a className="icon-btn" href="https://github.com" target="_blank" rel="noreferrer" aria-label="SHAKTI AI on GitHub"><Github size={18} /></a>
+            <a className="icon-btn" href="https://linkedin.com" target="_blank" rel="noreferrer" aria-label="SHAKTI AI on LinkedIn"><Linkedin size={18} /></a>
+          </div>
+        </div>
+        <div className="contact-grid">
+          <form className="glass-card p-6" onSubmit={handleSubmit}>
+            <div className="mb-5">
+              <p className="text-sm font-bold uppercase tracking-[0.18em] text-shakti-purple">Connect with Team SHAKTI</p>
+              <h3 className="mt-2 font-heading text-2xl font-bold">Start a conversation</h3>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-2">
+              <input className="field" placeholder="Full name" aria-label="Full name" required />
+              <input className="field" type="email" placeholder="Work email" aria-label="Work email" required />
+            </div>
+            <textarea className="field mt-3 min-h-32 resize-none" placeholder="How can we collaborate?" aria-label="Message" required />
+            {sent && <p className="mt-3 rounded-2xl bg-shakti-teal/10 p-3 text-sm font-semibold text-teal-800 dark:text-teal-200">Thanks. Your message is ready for the Team SHAKTI follow-up queue.</p>}
+            <button className="btn mt-4" type="submit">Send message <ExternalLink size={17} /></button>
+          </form>
+          <div className="map-placeholder" aria-label="Map placeholder showing Bengaluru, India">
+            <div className="map-grid" />
+            <span className="map-pin">●</span>
+            <div className="map-label"><strong>Team SHAKTI AI</strong><span>Bengaluru, India</span></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="border-t border-slate-200 bg-slate-950 py-10 text-white dark:border-white/10">
+      <div className="mx-auto flex max-w-7xl flex-col gap-6 px-4 sm:flex-row sm:items-end sm:justify-between lg:px-6">
+        <div>
+          <Link to="/" className="font-heading text-xl font-extrabold tracking-wide text-white">SHAKTI <span className="text-shakti-pink">AI</span></Link>
+          <p className="mt-2 max-w-md text-sm leading-6 text-slate-400">Multilingual AI-powered clinical screening and decision support for women.</p>
+        </div>
+        <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm font-semibold text-slate-300">
+          <a href="#about" className="hover:text-white">About</a>
+          <a href="#research" className="hover:text-white">Research</a>
+          <a href="#contact" className="hover:text-white">Contact</a>
+          <a href="#contact" className="hover:text-white">Privacy</a>
+          <a href="#contact" className="hover:text-white">Terms</a>
+        </div>
+        <p className="text-sm text-slate-500">SHAKTI AI © 2026</p>
+      </div>
+    </footer>
   );
 }
 
