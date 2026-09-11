@@ -10,6 +10,7 @@ import {
   Bell,
   Brain,
   CheckCircle2,
+  ChevronRight,
   Cloud,
   ExternalLink,
   Download,
@@ -22,8 +23,10 @@ import {
   Menu,
   Mic,
   Moon,
+  Pause,
   Play,
   Radio,
+  RotateCcw,
   Settings,
   ShieldCheck,
   Smartphone,
@@ -52,6 +55,38 @@ const fadeUp = {
   viewport: { once: true, amount: 0.2 },
   transition: { duration: 0.65, ease: "easeOut" }
 };
+
+const demoVitals = [
+  { heartRate: 82, spo2: 98, temperature: 36.8, bloodPressure: "118/76", glucose: 104 },
+  { heartRate: 96, spo2: 96, temperature: 37.2, bloodPressure: "126/82", glucose: 118 },
+  { heartRate: 111, spo2: 94, temperature: 37.8, bloodPressure: "138/88", glucose: 142 },
+  { heartRate: 126, spo2: 91, temperature: 38.7, bloodPressure: "152/96", glucose: 168 }
+];
+
+// Prototype scoring only: replace this deterministic demo engine with a validated
+// model or backend risk service when clinical training and evaluation are available.
+function calculateDemoRisk(vitals, symptoms = "") {
+  const symptomText = symptoms.toLowerCase();
+  const signals = [
+    { label: "Elevated heart rate", active: vitals.heartRate >= 100, weight: 25 },
+    { label: "Reduced SpO2", active: vitals.spo2 <= 94, weight: 30 },
+    { label: "Temperature increase", active: vitals.temperature >= 37.8, weight: 12 },
+    { label: "Elevated blood pressure", active: Number(vitals.bloodPressure.split("/")[0]) >= 140, weight: 13 },
+    { label: "Reported breathing difficulty", active: /breath|respir|மூச்சு/.test(symptomText), weight: 20 },
+    { label: "Reported chest or jaw discomfort", active: /chest|jaw|pain|வலி/.test(symptomText), weight: 15 }
+  ];
+  const score = Math.min(100, signals.reduce((total, signal) => total + (signal.active ? signal.weight : 0), 8));
+  const level = score > 60 ? "CRITICAL" : score > 30 ? "MODERATE" : "LOW";
+  const rankedRisks = [
+    { name: "Cardiac", value: Math.min(100, score + (vitals.heartRate >= 100 ? 8 : 0)), color: "#D81B60" },
+    { name: "PCOS", value: Math.min(100, 22 + (vitals.glucose >= 140 ? 28 : 0)), color: "#0EA5E9" },
+    { name: "Perimenopause mental health", value: 24, color: "#6A1B9A" },
+    { name: "Autoimmune", value: Math.min(100, 18 + (vitals.temperature >= 37.8 ? 22 : 0)), color: "#26A69A" },
+    { name: "Osteoporosis", value: 16, color: "#F59E0B" }
+  ].sort((first, second) => second.value - first.value);
+
+  return { score, level, signals: signals.filter((signal) => signal.active).map((signal) => signal.label), rankedRisks };
+}
 
 function App() {
   const [dark, setDark] = useState(false);
@@ -211,11 +246,14 @@ function HomePage() {
     <main>
       <Hero />
       <Stats />
+      <HackathonStory />
       <Problem />
       <Solution />
       <ScreeningSection />
+      <LiveMonitor />
       <DoctorDashboardPreview />
       <ExplainableAI />
+      <ModelPerformance />
       <RuralMode />
       <Technology />
       <Research />
@@ -235,17 +273,18 @@ function Hero() {
         <motion.div {...fadeUp}>
           <span className="pill"><ShieldCheck size={16} /> SHAKTI AI</span>
           <h1 className="mt-7 font-heading text-5xl font-extrabold leading-tight text-slate-950 dark:text-white sm:text-6xl lg:text-7xl">
-            SHAKTI AI
-            <span className="block bg-gradient-to-r from-shakti-pink via-shakti-purple to-shakti-teal bg-clip-text text-3xl text-transparent sm:text-4xl lg:text-5xl">Silent Health Crisis Detector for Women</span>
+            Real-Time AI
+            <span className="block bg-gradient-to-r from-shakti-pink via-shakti-purple to-shakti-teal bg-clip-text text-3xl text-transparent sm:text-4xl lg:text-5xl">for Women's Health</span>
           </h1>
           <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-300">
-            One 4-minute conversation. Five silent health conditions screened. AI-powered multilingual clinical decision support built for India and scalable globally.
+            Detect emerging health risks early by combining live patient signals, symptoms, voice input, and AI-powered decision support.
           </p>
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <Link to="/screening" className="btn"><Mic size={18} /> Start AI Screening</Link>
-            <a href="#ai-screening" className="btn btn-secondary"><Play size={18} /> Watch Demo</a>
+            <a href="#live-monitor" className="btn"><Activity size={18} /> Launch Live Monitor</a>
+            <a href="#ai-insights" className="btn btn-secondary"><Brain size={18} /> View AI Insights</a>
             <a href="#research" className="btn btn-ghost"><FileText size={18} /> Research Paper</a>
           </div>
+          <p className="mt-6 max-w-xl text-sm font-semibold leading-6 text-slate-500 dark:text-slate-400">SHAKTI AI continuously analyzes incoming health signals to identify changing risk patterns and prioritize cases requiring clinical attention.</p>
           <div className="mt-8 flex flex-wrap gap-3 text-sm font-semibold text-slate-600 dark:text-slate-300">
             {["English", "Tamil", "Hindi", "Telugu"].map((lang) => <span className="mini-chip" key={lang}>{lang}</span>)}
           </div>
@@ -318,6 +357,15 @@ function StatCard({ value, label, index }) {
   );
 }
 
+function HackathonStory() {
+  const items = [
+    ["THE PROBLEM", "Women's health risks can remain undetected because symptoms may be overlooked, data may be fragmented, and clinical teams have limited time to prioritize every case."],
+    ["OUR SOLUTION", "SHAKTI AI combines multiple real-time signals and AI-assisted risk analysis to identify changing risk patterns and prioritize patients for clinical attention."],
+    ["WHY REAL-TIME AI?", "A patient's condition can change rapidly. The system continuously updates the risk state as new information arrives instead of analyzing information only once."]
+  ];
+  return <section className="section"><div className="mx-auto grid max-w-7xl gap-4 px-4 md:grid-cols-3 lg:px-6">{items.map(([title, text], index) => <motion.article {...fadeUp} transition={{ delay: index * 0.08 }} className="story-card" key={title}><span>0{index + 1}</span><h2>{title}</h2><p>{text}</p></motion.article>)}</div></section>;
+}
+
 function Problem() {
   const cards = [
     ["Female Cardiac Disease", "Symptoms often appear as fatigue, breathlessness, jaw pain, or nausea rather than classic chest pain.", HeartPulse],
@@ -371,6 +419,127 @@ function ScreeningSection() {
       </div>
     </section>
   );
+}
+
+function LiveMonitor({ compact = false }) {
+  const [patientId, setPatientId] = useState("P-1024");
+  const [symptoms, setSymptoms] = useState("Sometimes I feel breathless and have jaw discomfort.");
+  const [vitalIndex, setVitalIndex] = useState(0);
+  const [running, setRunning] = useState(false);
+  const [paused, setPaused] = useState(false);
+  const [updatedAt, setUpdatedAt] = useState(new Date());
+  const [acknowledged, setAcknowledged] = useState(false);
+  const [timeline, setTimeline] = useState([{ label: "Now", text: "Monitoring initialized" }]);
+  const vitals = demoVitals[vitalIndex];
+  const analysis = calculateDemoRisk(vitals, symptoms);
+  const isCritical = analysis.level === "CRITICAL";
+
+  useEffect(() => {
+    if (!running || paused) return undefined;
+    const timer = window.setInterval(() => {
+      setVitalIndex((current) => {
+        const next = Math.min(demoVitals.length - 1, current + 1);
+        const nextVitals = demoVitals[next];
+        const nextAnalysis = calculateDemoRisk(nextVitals, symptoms);
+        const timestamp = new Date();
+        setUpdatedAt(timestamp);
+        setTimeline((currentTimeline) => [
+          ...currentTimeline.slice(-3),
+          { label: timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }), text: nextAnalysis.level === "CRITICAL" ? "CRITICAL ALERT generated" : next === 1 ? "Elevated heart rate detected" : "Oxygen level decreasing" }
+        ]
+        );
+        if (next === demoVitals.length - 1) setRunning(false);
+        return next;
+      });
+    }, 2400);
+    return () => window.clearInterval(timer);
+  }, [running, paused, symptoms]);
+
+  const startSimulation = () => {
+    setRunning(true);
+    setPaused(false);
+    setAcknowledged(false);
+  };
+
+  const resetSimulation = () => {
+    setRunning(false);
+    setPaused(false);
+    setVitalIndex(0);
+    setAcknowledged(false);
+    setUpdatedAt(new Date());
+    setTimeline([{ label: "Now", text: "Monitoring reset to baseline" }]);
+  };
+
+  const alertQueue = [
+    { id: patientId, score: analysis.score, level: analysis.level, detail: analysis.signals[0] || "Continue monitoring" },
+    { id: "P-1087", score: 78, level: "CRITICAL", detail: "Low SpO2 detected" },
+    { id: "P-1034", score: 48, level: "MODERATE", detail: "Multiple risk indicators" },
+    { id: "P-1012", score: 22, level: "LOW", detail: "Continue monitoring" }
+  ].sort((first, second) => second.score - first.score);
+
+  return (
+    <section className={`${compact ? "mt-6" : "section"} ${compact ? "" : "bg-shakti-mist dark:bg-slate-900"}`} id={compact ? undefined : "live-monitor"}>
+      {!compact && <SectionTitle eyebrow="Real-Time AI Sentinel" title="Live Health Monitor" text="A demonstration command center that combines live-looking vitals, patient-reported symptoms, and prototype risk reasoning." />}
+      <div className={`${compact ? "" : "mx-auto mt-10 max-w-7xl"} px-4 lg:px-6`}>
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="demo-badge"><Radio size={15} /> DEMO MODE</span>
+            <span className="live-badge"><span /> {running ? "LIVE MONITORING" : "MONITOR READY"}</span>
+          </div>
+          <p className="text-xs font-semibold text-slate-500 dark:text-slate-400">Prototype logic, not clinically validated</p>
+        </div>
+        <div className="monitor-shell">
+          <div className="monitor-toolbar">
+            <label className="text-sm font-bold">Sample patient
+              <select className="field mt-1 min-w-40" value={patientId} onChange={(event) => setPatientId(event.target.value)}>
+                <option>P-1024</option><option>P-1042</option><option>P-1087</option>
+              </select>
+            </label>
+            <div className="flex flex-wrap gap-2">
+              <button className="btn" onClick={startSimulation} disabled={running}><Play size={17} /> Start Emergency Simulation</button>
+              <button className="btn btn-secondary" onClick={() => setPaused((current) => !current)} disabled={!running}>{paused ? <Play size={17} /> : <Pause size={17} />} {paused ? "Resume" : "Pause"}</button>
+              <button className="icon-btn" onClick={resetSimulation} aria-label="Reset simulation"><RotateCcw size={18} /></button>
+            </div>
+          </div>
+          <div className="grid gap-5 xl:grid-cols-[1.2fr_0.8fr]">
+            <div>
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                <VitalTile icon={HeartPulse} label="Heart Rate" value={`${vitals.heartRate} BPM`} danger={vitals.heartRate >= 100} />
+                <VitalTile icon={Activity} label="SpO2" value={`${vitals.spo2}%`} danger={vitals.spo2 <= 94} />
+                <VitalTile icon={Activity} label="Temperature" value={`${vitals.temperature}°C`} danger={vitals.temperature >= 37.8} />
+                <VitalTile icon={Activity} label="Blood Pressure" value={`${vitals.bloodPressure} mmHg`} danger={vitals.bloodPressure.startsWith("15")} />
+                <VitalTile icon={Activity} label="Glucose" value={`${vitals.glucose} mg/dL`} danger={vitals.glucose >= 140} />
+                <VitalTile icon={Radio} label="Last Updated" value={updatedAt.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })} />
+              </div>
+              <div className={`score-panel mt-4 ${isCritical ? "critical" : analysis.level === "MODERATE" ? "moderate" : "low"}`}>
+                <div><p>AI Risk Score</p><strong>{analysis.score}<small>/100</small></strong></div>
+                <div className="text-right"><span>Risk Level</span><b>{analysis.level}</b></div>
+              </div>
+              <div className="mt-4 rounded-2xl border border-slate-200 bg-white/70 p-4 dark:border-white/10 dark:bg-slate-950/50">
+                <label className="text-sm font-bold text-slate-700 dark:text-slate-200">Multimodal symptom input</label>
+                <textarea className="field mt-2 min-h-20 resize-none" value={symptoms} onChange={(event) => setSymptoms(event.target.value)} placeholder="Type English, Tamil, or another supported symptom response" aria-label="Symptoms" />
+                <p className="mt-2 text-xs font-semibold text-slate-500">Voice capture remains available in the AI Screening flow. This monitor combines the resulting text with live vitals.</p>
+              </div>
+            </div>
+            <div className="space-y-4">
+              <div className={`alert-banner ${isCritical ? "critical" : ""}`}><Bell size={20} /><div><strong>{isCritical ? "CRITICAL ALERT" : "Monitoring alert"}</strong><p>{analysis.signals.length ? analysis.signals.join("; ") : "No elevated signals detected."}</p><span>Recommended: {isCritical ? "Immediate clinical assessment." : "Continue monitoring and review."}</span></div></div>
+              <div className="monitor-card"><div className="flex items-center justify-between"><h3>Why did the risk increase?</h3><Brain className="text-shakti-purple" /></div><div className="mt-3 space-y-2">{analysis.signals.length ? analysis.signals.map((signal) => <div className="signal-row" key={signal}><CheckCircle2 size={16} /> {signal}</div>) : <p className="text-sm text-slate-500">Signals will appear as input changes.</p>}</div></div>
+              <div className="monitor-card"><h3>Ranked condition estimates</h3><p className="mt-1 text-xs font-semibold text-slate-500">Demo estimates for presentation only</p><div className="mt-3 space-y-3">{analysis.rankedRisks.map((risk) => <div key={risk.name}><div className="flex justify-between text-xs font-bold"><span>{risk.name}</span><span style={{ color: risk.color }}>{risk.value}/100</span></div><div className="mt-1 h-2 rounded-full bg-slate-200 dark:bg-slate-800"><div className="h-full rounded-full" style={{ width: `${risk.value}%`, background: risk.color }} /></div></div>)}</div></div>
+            </div>
+          </div>
+          <div className="mt-5 grid gap-5 lg:grid-cols-[1fr_1fr]">
+            <div className="monitor-card"><h3>Decision timeline</h3><div className="timeline-list mt-3">{timeline.map((item, index) => <div key={`${item.label}-${index}`}><span>{item.label}</span><p>{item.text}</p></div>)}</div></div>
+              <div className="monitor-card"><div className="flex items-center justify-between"><h3>Live Patient Alerts</h3><span className="text-xs font-bold text-slate-500">Sorted by urgency</span></div><div className="mt-3 space-y-2">{alertQueue.map((alert) => <div className="queue-row" key={alert.id}><div><strong>{alert.id}</strong><span>{alert.level} · {alert.detail}</span></div><div className="queue-actions"><button onClick={() => alert.id === patientId && setAcknowledged(true)}>{alert.id === patientId && acknowledged ? "Acknowledged" : "Acknowledge"}</button><button onClick={() => alert.id === patientId && setSymptoms("Patient record opened for clinical review.")}>View Patient</button><button onClick={() => alert.id === patientId && setSymptoms("Updated vitals requested; please provide current symptoms.")}>Request Vitals</button><button onClick={() => alert.id === patientId && setAcknowledged(true)}>Start Consultation</button><button onClick={() => alert.id === patientId && setAcknowledged(true)}>Refer Patient</button></div></div>)}</div></div>
+          </div>
+        </div>
+        <p className="mt-4 text-center text-xs font-semibold leading-5 text-slate-500 dark:text-slate-400">AI-generated decision support only. This prototype does not diagnose disease or replace qualified healthcare professionals.</p>
+      </div>
+    </section>
+  );
+}
+
+function VitalTile({ icon: Icon, label, value, danger = false }) {
+  return <div className={`vital-tile ${danger ? "danger" : ""}`}><Icon size={18} /><span>{label}</span><strong>{value}</strong></div>;
 }
 
 function ScreeningPage() {
@@ -801,6 +970,7 @@ function DashboardFrame({ preview = false }) {
           </div>
           <button onClick={() => downloadReport(currentPatient)} className="btn"><Download size={18} /> Download Report</button>
         </div>
+        <LiveMonitor compact />
         {renderContent()}
       </div>
     </div>
@@ -816,7 +986,7 @@ function ExplainableAI() {
     ["Doctor Recommendation", "Suggested evaluation and tests", 78]
   ];
   return (
-    <section className="section" id="why-the-ai-suggested-these-risks">
+    <section className="section" id="ai-insights">
       <SectionTitle eyebrow="Explainable AI" title="Why the AI Suggested These Risks" text="SHAKTI AI turns conversational signals into evidence that clinicians can inspect, question, and act on." />
       <div className="mx-auto mt-10 max-w-5xl px-4 lg:px-6">
         {rows.map(([label, text, score], i) => (
@@ -827,6 +997,17 @@ function ExplainableAI() {
             {i < rows.length - 1 && <ArrowDown className="absolute -bottom-5 left-8 text-shakti-teal" />}
           </motion.div>
         ))}
+      </div>
+    </section>
+  );
+}
+
+function ModelPerformance() {
+  return (
+    <section className="section bg-shakti-mist dark:bg-slate-900">
+      <SectionTitle eyebrow="Model Governance" title="AI Model Performance" text="Transparent evaluation belongs in the product. Metrics appear only after a trained model has been validated on an appropriate dataset." />
+      <div className="mx-auto mt-10 max-w-5xl px-4 lg:px-6">
+        <div className="model-empty-state"><Brain size={30} className="text-shakti-purple" /><div><h3>Model evaluation will appear here after training and validation.</h3><p>This hackathon prototype uses clearly labeled simulation logic. No accuracy, precision, recall, F1, ROC-AUC, feature importance, or confusion matrix values are claimed.</p></div></div>
       </div>
     </section>
   );
@@ -942,7 +1123,7 @@ function Contact() {
     <section className="section contact-section" id="contact">
       <div className="mx-auto grid max-w-7xl gap-8 px-4 lg:grid-cols-[0.8fr_1.2fr] lg:px-6">
         <div>
-          <p className="text-sm font-extrabold uppercase tracking-[0.28em] text-shakti-pink">IEEE WIE 2026</p>
+          <p className="text-sm font-extrabold uppercase tracking-[0.28em] text-shakti-pink">Team SHAKTI AI</p>
           <h2 className="mt-3 font-heading text-3xl font-extrabold text-slate-950 dark:text-white sm:text-4xl">Bring earlier care closer to every woman.</h2>
           <p className="mt-4 max-w-lg leading-8 text-slate-600 dark:text-slate-300">Team SHAKTI AI is building a multilingual screening and clinical decision support layer for hospitals, public health teams, and community workers.</p>
           <div className="mt-8 grid gap-3 text-sm font-semibold text-slate-700 dark:text-slate-200">
@@ -1481,7 +1662,7 @@ function portalCopy(item) {
     "Export Reports": "Download a PDF report with mock clinical data."
   };
 
-  return copy[item] || "Prototype module ready for IEEE demo workflow.";
+  return copy[item] || "Prototype module ready for a live healthcare demo.";
 }
 
 async function downloadReport(patient = null) {
